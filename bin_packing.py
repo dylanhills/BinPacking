@@ -13,7 +13,9 @@ RETURNS: a list of tuples that designate the top left corner placement,
          e.g. [(x1, y1), ... (xn, yn)] where
          x1 = top left x coordinate of rectangle 1 placement
          y1 = top left y coordinate of rectangle 1 placement, etc.
+         safia
 """
 
 def find_solution(rectangles):
+    
     return driver.find_naive_solution(rectangles)  # a working example!
