@@ -14,6 +14,7 @@ RETURNS: a list of tuples that designate the top left corner placement,
          x1 = top left x coordinate of rectangle 1 placement
          y1 = top left y coordinate of rectangle 1 placement, etc.
          safia
+         dylan
 """
 
 def find_solution(rectangles):
