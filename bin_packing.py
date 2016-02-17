@@ -14,9 +14,25 @@ RETURNS: a list of tuples that designate the top left corner placement,
          e.g. [(x1, y1), ... (xn, yn)] where
          x1 = top left x coordinate of rectangle 1 placement
          y1 = top left y coordinate of rectangle 1 placement, etc.
-         safia
-         dylan
 """
+
+"""
+Dylan Hills
+Safia Malallah
+
+Technique: 
+This solution first sorts the rectangles by height.
+It then sweeps to the right (+x). Once it reaches a right border
+it bumps down to the next level. An array is maintained to track 
+the lowest legal height that a box can be placed at any given x coordinate.
+A box is placed at the lowest legal height in the range of its width.
+Once the sweep reaches the left end, it bumps up to the next layer, and then continues.
+Also Tried:
+Recursive solution. A funciton that attempts to fill 2 sets of empty space. The first is 
+the riht of the block that just got placed. The second set is above the block.
+Unfortunately, the recursive solution was very unsuccessful.
+"""
+
 def find_solution(rectangles):        
     rectangles.sort(key=lambda tup: tup[1], reverse=True)
 

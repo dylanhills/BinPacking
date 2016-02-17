@@ -145,8 +145,8 @@ def get_dataset(num):
      #generate 1,000 rectangles
      #widths in the range [1,500]
      #heights in the range [1,500]
-    sizes = rect_gen.randomSplit(5000,500,500)
-    #sizes = rect_gen.perfectSplit(100,100,500,500)
+    sizes = rect_gen.randomSplit(500,500,500)
+    #\sizes = rect_gen.perfectSplit(100,100,500,500)
     maxTime = 5 #just a constant time I guess.
     return (sizes,maxTime)
 
