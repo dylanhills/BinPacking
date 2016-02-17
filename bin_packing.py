@@ -17,19 +17,12 @@ RETURNS: a list of tuples that designate the top left corner placement,
          safia
          dylan
 """
-
-def find_solution(rectangles):
-    
+def find_solution(rectangles):        
     rectangles.sort(key=lambda tup: tup[1], reverse=True)
-    #for rectangle in rectangles:
-    #    print(str(rectangle[0])+"  "+str(rectangle[1]))
-
-
 
     lowest_legal_height = []
     widthGuess = round(guess_good_width(rectangles))
 
-    print("Width Guess: "+str(widthGuess))
 
     for i in range (0,widthGuess):
         lowest_legal_height.append(0)
@@ -42,12 +35,12 @@ def find_solution(rectangles):
         cur_rect_height = rectangle[1]
 
         if(forward_pass):
-            if(upper_left_x+cur_rect_width>widthGuess):#reached the end of the line on forward pass
+            if(upper_left_x+cur_rect_width>=widthGuess):#reached the end of the line on forward pass
                 upper_left_x = widthGuess-1- cur_rect_width
                 upper_left_y = lowest_legal_height_in_width_range(upper_left_x,widthGuess-1,lowest_legal_height)
                 forward_pass = not forward_pass
                 coordinate = (upper_left_x, upper_left_y)   # make a tuple
-                placement.insert(0, coordinate)             # insert tuple at front of list
+                placement.append(coordinate)             # insert tuple at front of list
                 
                 #update lowest_legal_height
                 for i in range(upper_left_x,upper_left_x+cur_rect_width):
@@ -55,7 +48,7 @@ def find_solution(rectangles):
             else:#regular placement
                 upper_left_y = lowest_legal_height_in_width_range(upper_left_x,upper_left_x+cur_rect_width,lowest_legal_height)
                 coordinate = (upper_left_x, upper_left_y)   # make a tuple
-                placement.insert(0, coordinate)             # insert tuple at front of list
+                placement.append( coordinate)             # insert tuple at front of list
 
                 #update lowest_legal_height
                 for i in range(upper_left_x,upper_left_x+cur_rect_width):
@@ -69,7 +62,7 @@ def find_solution(rectangles):
                 upper_left_x = 0
                 upper_left_y = lowest_legal_height_in_width_range(upper_left_x,upper_left_x+cur_rect_width,lowest_legal_height)
                 coordinate = (upper_left_x, upper_left_y)   # make a tuple
-                placement.insert(0, coordinate)             # insert tuple at front of list
+                placement.append( coordinate)             # insert tuple at front of list
                 
                 #update lowest_legal_height
                 for i in range(upper_left_x,upper_left_x+cur_rect_width):
@@ -80,29 +73,28 @@ def find_solution(rectangles):
                 
                 
             else:#regular placement
-                upper_left_x -= cur_rect_width+1
+                upper_left_x = upper_left_x - cur_rect_width
                 upper_left_y = lowest_legal_height_in_width_range(upper_left_x,upper_left_x+cur_rect_width,lowest_legal_height)
                 coordinate = (upper_left_x, upper_left_y)   # make a tuple
-                placement.insert(0, coordinate)             # insert tuple at front of list
-
+                placement.append( coordinate)             # insert tuple at front of list
+                
                 #update lowest_legal_height
                 for i in range(upper_left_x,upper_left_x+cur_rect_width):
                     lowest_legal_height[i] = upper_left_y+cur_rect_height
         #end of loop through rectangles
 
-
-    placement.reverse()   # original order
     return placement
 
+
+
 def lowest_legal_height_in_width_range(left,right,llh):
-    #print(str(llh[0]))
     if(left<0):
         left = 0
     counter = left
     min = -1
     if(right>len(llh)-1):
         right = len(llh)-1
-    while(counter<=right):
+    while(counter<right):
         if min<llh[counter]:
             min = llh[counter]
         counter += 1
@@ -110,10 +102,9 @@ def lowest_legal_height_in_width_range(left,right,llh):
 
 def guess_good_width(rectangles):
     total_area = 0
-    area_increase = 1.25
+    area_increase = 1.5
     for rectangle in rectangles:
         total_area += rectangle[0]*rectangle[1]
-    print(total_area)
     guess = math.ceil(math.sqrt(total_area*area_increase))
 
     return guess
